@@ -14,9 +14,7 @@ def install_db():
 	cliqz.cli.python_package('dawg')
 	pkg = cliqz.package.gen_definition()
 	pkg['strip'] = 0
-	with lcd( resource_file( '.' ) ):
-		local( 'PACKAGE={} make package'.format( pkg['local'] ) )
+	with lcd( resource_file( '../../' ) ):
+		local( "tar cjf {} hunmisc setup.py".format( pkg['local'] ) )
 	cliqz.package.install( pkg, path )
-	with cd(path):
-		run('python setup.py install')
-	return path
+	run('pip install --editable {}'.format(path))
